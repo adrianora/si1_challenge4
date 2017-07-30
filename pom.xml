@@ -6,7 +6,7 @@
 	<groupId>lab3.spring</groupId>
 	<artifactId>serpring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>serpring</name>
 	<description>Aplicação web com Spring em backend e AngularJS frontend</description>

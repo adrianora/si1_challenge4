@@ -2,68 +2,67 @@ angular.module("serpring")
   .controller("dashboardController", function($scope, $http) {
     
     /**
-     * Bind com dados do usuário que será logado.
-     */
+	 * Bind com dados do usuário que será logado.
+	 */
     $scope.userLogin = {};
 
     /**
-     * Bind com dados do usuário que está sendo cadastrado na aplicação.
-     */
+	 * Bind com dados do usuário que está sendo cadastrado na aplicação.
+	 */
     $scope.userSubscribe = {};
 
     /**
-     * Atributo contendo os dados de nome e email da sessão atual.
-     */
+	 * Atributo contendo os dados de nome e email da sessão atual.
+	 */
     $scope.currentSession = {};
 
     /**
-     * Bind contendo o nome da requisição para API do IMDB.
-     */
+	 * Bind contendo o nome da requisição para API do IMDB.
+	 */
     $scope.searchInput;
     $scope.serieSearchObject = {};
 
     /**
-     * Lista com todos as séries encontradas pela API do IMDB.
-     */
+	 * Lista com todos as séries encontradas pela API do IMDB.
+	 */
     $scope.searchRequest = [];
 
     /**
-     * Sub-listas com as séries adicionadas ao perfil e 
-     * a lista de desejo.
-     */
+	 * Sub-listas com as séries adicionadas ao perfil e a lista de desejo.
+	 */
     $scope.profileWatchlist = [];
     $scope.profileWatching = [];
 
     /**
-     * Coleção com todas as séries do perfil, tanto do perfil quanto da watchlist
-     */
+	 * Coleção com todas as séries do perfil, tanto do perfil quanto da
+	 * watchlist
+	 */
     $scope.collectionSeries = [];
 
     /**
-     * Status e mensagem padrão da aplicação
-     */
+	 * Status e mensagem padrão da aplicação
+	 */
     $scope.info = { status: "info", text: "Você precisa estar logado para adicionar séries" };
     
     /**
-     * Constantes da IMDB API
-     */
+	 * Constantes da IMDB API
+	 */
     const IMDB_API_ARGS = "&type=series";
     const IMDB_API_APIKEY = "&apikey=93330d3c&";
     const IMDB_API_BASEURL = "https://omdbapi.com/?s=";
     const IMDB_API_BASEURLID = "https://omdbapi.com/?i=";
     
     /**
-     * Constantes da API da aplicação 'Serpring'
-     */
-    const APP_NAME = "/serpring";
+	 * Constantes da API da aplicação 'Serpring'
+	 */
+    const APP_NAME = "/";
 
     /**
-     * Bateria de status que descrevem o comportamente atual da 
-     * aplicação ao usuário.
-     * 
-     * Tem como propriedades o status da requisição e uma mensagem 
-     * de retorno.
-     */
+	 * Bateria de status que descrevem o comportamente atual da aplicação ao
+	 * usuário.
+	 * 
+	 * Tem como propriedades o status da requisição e uma mensagem de retorno.
+	 */
     $scope.statusSuccess = function(message) {
       $scope.info.status = "success";
       $scope.info.text = message;
@@ -85,9 +84,9 @@ angular.module("serpring")
     };
 
     /**
-     * Cadastra novo usuário através da API e limpa os campos 
-     * input para cadastro de novo usuário.
-     */
+	 * Cadastra novo usuário através da API e limpa os campos input para
+	 * cadastro de novo usuário.
+	 */
     $scope.addProfile = function(profile) {
       $http({method: 'POST', url: APP_NAME + '/user', data: $scope.userSubscribe})
       .then(function(response) {
@@ -102,17 +101,18 @@ angular.module("serpring")
     };
 
     /**
-     * Faz requisição à API REST enviando dados de email e senha do usuário. 
-     * Se o usuário existir será retornado os dados de usuário que serão capturados 
-     * e encaminhados para o atributo 'currentSession', responsável por administrar 
-     * a sessão atual.
-     * 
-     * Os campos de input para login são limpados para uso futuro.
-     * 
-     * Através do método 'buildSeriesListsFromProfile' é realizado uma nova consulta 
-     * na API que retorna todas as séries do usuário em específico. Essa lista de 
-     * retorno é subdividida em duas: séries cadastradas no perfil e outra na lista de desejo.
-     */
+	 * Faz requisição à API REST enviando dados de email e senha do usuário. Se
+	 * o usuário existir será retornado os dados de usuário que serão capturados
+	 * e encaminhados para o atributo 'currentSession', responsável por
+	 * administrar a sessão atual.
+	 * 
+	 * Os campos de input para login são limpados para uso futuro.
+	 * 
+	 * Através do método 'buildSeriesListsFromProfile' é realizado uma nova
+	 * consulta na API que retorna todas as séries do usuário em específico.
+	 * Essa lista de retorno é subdividida em duas: séries cadastradas no perfil
+	 * e outra na lista de desejo.
+	 */
     $scope.login = function() {
       $http({method: 'POST', url: APP_NAME + '/login', data: $scope.userLogin})
       .then(function(response) {
@@ -128,11 +128,11 @@ angular.module("serpring")
     };
 
     /**
-     * Encerrar a sessão atual não interage com a API.
-     * 
-     * Apenas o atributo de sessão 'currentSession' é zerado e as sub-listas, 
-     * retornando ao estado inicial da aplicação.
-     */
+	 * Encerrar a sessão atual não interage com a API.
+	 * 
+	 * Apenas o atributo de sessão 'currentSession' é zerado e as sub-listas,
+	 * retornando ao estado inicial da aplicação.
+	 */
     $scope.logout = function(user) {
       if ($scope.currentSession != undefined) {
         $scope.statusSuccess("Até mais " + $scope.currentSession.name);
@@ -145,9 +145,9 @@ angular.module("serpring")
     };
 
     /**
-     * Adiciona série delegando para 'addSerie' com argumentos objeto Serie 
-     * e booleano informando se deve ser adicionado no perfil ou na watchlist.
-     */
+	 * Adiciona série delegando para 'addSerie' com argumentos objeto Serie e
+	 * booleano informando se deve ser adicionado no perfil ou na watchlist.
+	 */
     $scope.addSerieToProfile = function(serie) {
       if ($scope.currentSession.email !== undefined) {
         addSerie(serie, "true");
@@ -158,9 +158,9 @@ angular.module("serpring")
     };
 
     /**
-     * Remove série do banco de dados e remove série da coleção diretamente do front-end 
-     * sem refazer o boot.
-     */
+	 * Remove série do banco de dados e remove série da coleção diretamente do
+	 * front-end sem refazer o boot.
+	 */
     $scope.removeSerieFromProfile = function (serie) {
       if (confirm('Você tem certeza que deseja remover "' + serie.title + '" do seu perfil?') === true) {
         deleteDB(serie);
@@ -169,25 +169,25 @@ angular.module("serpring")
     };
 
     /**
-     * Atualiza nota da série ao perfil e realiza boot da coleção de séries.
-     */
+	 * Atualiza nota da série ao perfil e realiza boot da coleção de séries.
+	 */
     $scope.addRatingToProfile = function (serie, rating) {
       serie.myRating = rating;
       putDB(serie);
     };
 
     /**
-     * Atualiza último episódio assistido e realiza boot da coleção de séries.
-     */
+	 * Atualiza último episódio assistido e realiza boot da coleção de séries.
+	 */
     $scope.addLastEpisodeToProfile = function (serie, episode) {
       serie.lastEpisodeWatched = episode;
       putDB(serie);
     };
 
     /**
-     * Adiciona série delegando para 'addSerie' com argumentos objeto Serie 
-     * e booleano informando se deve ser adicionado no perfil ou na watchlist.
-     */
+	 * Adiciona série delegando para 'addSerie' com argumentos objeto Serie e
+	 * booleano informando se deve ser adicionado no perfil ou na watchlist.
+	 */
     $scope.addSerieToWatchlist = function(serie) {
       if ($scope.currentSession.email !== undefined) {
         addSerie(serie, "false");
@@ -198,9 +198,9 @@ angular.module("serpring")
     };
 
     /**
-     * Remove série do banco de dados e remove série da coleção diretamente do front-end 
-     * sem refazer o boot.
-     */
+	 * Remove série do banco de dados e remove série da coleção diretamente do
+	 * front-end sem refazer o boot.
+	 */
     $scope.removeSerieFromWatchlist = function (serie) {
       if (confirm('Você tem certeza que deseja remover "' + serie.title + '" da sua lista de desejos?') === true) {
         deleteDB(serie);
@@ -209,9 +209,9 @@ angular.module("serpring")
     };
 
     /**
-     * Altera status booleano 'inProfile' - que informa se a série está no 
-     * perfil - atualiza no banco de dados e realiza boot da coleção de séries.
-     */
+	 * Altera status booleano 'inProfile' - que informa se a série está no
+	 * perfil - atualiza no banco de dados e realiza boot da coleção de séries.
+	 */
     $scope.moveSerieFromWatching = function (serie) {
       if (confirm('Você tem certeza que deseja mover "' + serie.title + '" para seu perfil?') === true) {
         serie.inProfile = "true";
@@ -221,9 +221,9 @@ angular.module("serpring")
     };
 
     /**
-     * Se o campo de busca não estiver vazio, realiza busca na API do IMDB 
-     * e retorna lista de séries correspondente a busca.
-     */
+	 * Se o campo de busca não estiver vazio, realiza busca na API do IMDB e
+	 * retorna lista de séries correspondente a busca.
+	 */
     $scope.searchSerieRequest = function () {
       if ($scope.searchInput.length > 0) {
         return $http
@@ -240,13 +240,13 @@ angular.module("serpring")
     };
 
     /**
-     * Salva série no banco de dados.
-     * 
-     * Tem como argumento de entrada objeto JSON do tipo série.
-     * 
-     * É necessário traduzir o callback através do método 'serieObjectBuilder' 
-     * da requisição na IMDB API antes de usar o método.
-     */
+	 * Salva série no banco de dados.
+	 * 
+	 * Tem como argumento de entrada objeto JSON do tipo série.
+	 * 
+	 * É necessário traduzir o callback através do método 'serieObjectBuilder'
+	 * da requisição na IMDB API antes de usar o método.
+	 */
     var saveDB = function(serie) {
       $http({method: 'POST', url: APP_NAME + '/serie', data: serie})
       .then(function(response) {
@@ -259,13 +259,13 @@ angular.module("serpring")
     };
 
     /**
-     * Salva série no banco de dados.
-     * 
-     * Tem como argumento de entrada objeto JSON do tipo série.
-     * 
-     * É necessário traduzir o callback através do método 'serieObjectBuilder' 
-     * da requisição na IMDB API antes de usar o método.
-     */
+	 * Salva série no banco de dados.
+	 * 
+	 * Tem como argumento de entrada objeto JSON do tipo série.
+	 * 
+	 * É necessário traduzir o callback através do método 'serieObjectBuilder'
+	 * da requisição na IMDB API antes de usar o método.
+	 */
     var putDB = function(serie) {
       $http({method: 'PUT', url: APP_NAME + '/serie/' + serie.id, data: serie})
       .then(function(response) {
@@ -278,10 +278,10 @@ angular.module("serpring")
     };
 
     /**
-     * Deleta série do banco de dados.
-     * 
-     * Tem como argumento de entrada objeto JSON do tipo série.
-     */
+	 * Deleta série do banco de dados.
+	 * 
+	 * Tem como argumento de entrada objeto JSON do tipo série.
+	 */
     var deleteDB = function(serie) {
       $http({method: 'DELETE', url: APP_NAME + '/serie/' + serie.id})
       .then(function(response) {
@@ -294,20 +294,22 @@ angular.module("serpring")
     };
 
     /**
-     * Realiza consulta na API do IMDB pela id da série passada no argumento.
-     * O callback retorna um objeto série com todos os atributos. 
-     * 
-     * Com sintaxe de atributos diferente da recebida pela API do Serpring, o método 
-     * 'serieObjectBuilder' traduz os atributos para a sintaxe correta e retorna um 
-     * novo objeto. Agora aceito pela API.
-     * 
-     * Como atributos satélites, passamos as informações de id do usuário e booleando 
-     * true informando que a série será adicionada na sublista watching.
-     * 
-     * O objeto retornado é inserido no banco de dados através do método 'saveSerieOnDB' 
-     * que consulta a API do Serpring e realiza a inserção. Em seguida é reconstruído 
-     * as duas sub-listas do usuário através do método 'bootSerieCollection'.
-     */
+	 * Realiza consulta na API do IMDB pela id da série passada no argumento. O
+	 * callback retorna um objeto série com todos os atributos.
+	 * 
+	 * Com sintaxe de atributos diferente da recebida pela API do Serpring, o
+	 * método 'serieObjectBuilder' traduz os atributos para a sintaxe correta e
+	 * retorna um novo objeto. Agora aceito pela API.
+	 * 
+	 * Como atributos satélites, passamos as informações de id do usuário e
+	 * booleando true informando que a série será adicionada na sublista
+	 * watching.
+	 * 
+	 * O objeto retornado é inserido no banco de dados através do método
+	 * 'saveSerieOnDB' que consulta a API do Serpring e realiza a inserção. Em
+	 * seguida é reconstruído as duas sub-listas do usuário através do método
+	 * 'bootSerieCollection'.
+	 */
     var addSerie = function(serie, booleanSerieInProfile) {
       $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
       .then(function (response) {
@@ -320,10 +322,11 @@ angular.module("serpring")
     };
 
     /**
-     * Traduz dados recebidos do callback da IMDB API para aplicação Serpring.
-     * 
-     * Adiciona os dados: id do usuário e qual das sublistas a série será adicionada.
-     */
+	 * Traduz dados recebidos do callback da IMDB API para aplicação Serpring.
+	 * 
+	 * Adiciona os dados: id do usuário e qual das sublistas a série será
+	 * adicionada.
+	 */
     var serieObjectBuilder = function(response, userId, booleanInProfile) {
         var objectSerie = {
           "userId": userId,
@@ -342,10 +345,10 @@ angular.module("serpring")
     };
 
     /**
-     * Sempre que o usuário logar ou for adicionado uma nova série ao perfil 
-     * será realizado uma requisição na API do Serpring para sincronizar a coleção 
-     * de séries presente no front-end.
-     */
+	 * Sempre que o usuário logar ou for adicionado uma nova série ao perfil
+	 * será realizado uma requisição na API do Serpring para sincronizar a
+	 * coleção de séries presente no front-end.
+	 */
     var bootSerieCollection = function() {
       $http({method: 'GET', url: APP_NAME + '/user/' + $scope.currentSession.id + '/series/'})
       .then(function(response) {
@@ -358,13 +361,14 @@ angular.module("serpring")
     };
 
     /**
-     * Constrói as duas sublistas de série no profile e da lista de desejo 
-     * a partir da coleção de séries adquirida pelo método 'getAllSeriesFromProfile'.
-     * A divisão entre as duas listas será realizada pelo atributo 'inProfile' do 
-     * que retorna um booleano se a série está no perfil ou na lista de desejo.
-     * 
-     * Utiliza listas auxiliares para resolver problema de elementos duplicados.
-     */
+	 * Constrói as duas sublistas de série no profile e da lista de desejo a
+	 * partir da coleção de séries adquirida pelo método
+	 * 'getAllSeriesFromProfile'. A divisão entre as duas listas será realizada
+	 * pelo atributo 'inProfile' do que retorna um booleano se a série está no
+	 * perfil ou na lista de desejo.
+	 * 
+	 * Utiliza listas auxiliares para resolver problema de elementos duplicados.
+	 */
     var buildSeriesListsCollection = function() {
       var profileList = [];
       var watchList = [];
@@ -381,8 +385,8 @@ angular.module("serpring")
     };
 
     /**
-     * Retorna booleano se existe um objeto no array passado como argumento.
-     */
+	 * Retorna booleano se existe um objeto no array passado como argumento.
+	 */
     var containsInArray = function(array, serie) {
       for (var index = 0; index < array.length; index++) {
         if (array[index].imdbID === serie.imdbID) {
