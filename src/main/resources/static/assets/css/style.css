@@ -1,0 +1,9 @@
+.center { float: none !important; margin: 0 auto; display: block; }
+.bottom { position: absolute; bottom: 1px; }
+.element-box { height: 340px; float: left; display: block; margin: 15px 0; }
+/* extends css bootstrap */
+.modal-body { float: left; }
+.thumbnail-modal-inside { width: 210px; float: left; }
+.background-white { background-color: #FFF; }
+.glyphicon { right: 5px !important; }
+.margin-bottom { margin-bottom: 10px; width: 100% !important; }
