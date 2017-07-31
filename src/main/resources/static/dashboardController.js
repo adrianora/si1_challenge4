@@ -390,7 +390,7 @@ angular.module("serpring")
 	 */
     var containsInArray = function(array, serie) {
       for (var index = 0; index < array.length; index++) {
-        if (array[index].imdbID === serie.imdbID) {
+        if (array[index].imdbId === serie.imdbId) {
           return true;
         }
       }
