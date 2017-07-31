@@ -1,4 +1,8 @@
-# si1_challenge4
-Spring + AngularJS
+# Implantação de Aplicação Web
+Aplicação web desenvolvida em:
+- Spring
+- AngularJS
+- PostgreSQL
+- Heroku
 
 Link da aplicação: https://serpring.herokuapp.com/
