@@ -184,7 +184,7 @@ angular.module("serpring")
 	 * booleano informando se deve ser adicionado no perfil ou na watchlist.
 	 */
     $scope.addSerieToWatchlist = function(serie) {
-      addSerie(serie, $scope.profileWatching, "false");
+      addSerie(serie, $scope.profileWatchlist, "false");
     };
 
     /**
