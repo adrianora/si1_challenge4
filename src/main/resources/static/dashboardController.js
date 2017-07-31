@@ -303,9 +303,9 @@ angular.module("serpring")
 	 */
     var addSerie = function(serie, arraySerie, booleanSerieInProfile) {
       if ($scope.currentSession.email !== undefined) {
-        if (containsInArray($scope.profileWatching, serie) === true) {
+        if (containsInArray($scope.profileWatching, serie) === "true") {
           alert("Esta série já está adicionada em seu perfil");
-        } else if (containsInArray($scope.profileWatchlist, serie) === true) {
+        } else if (containsInArray($scope.profileWatchlist, serie) === "true") {
           alert("Esta série já está adicionada em sua lista de desejos");
         } else {
           $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
@@ -390,12 +390,13 @@ angular.module("serpring")
 	 * Retorna booleano se existe um objeto no array passado como argumento.
 	 */
     var containsInArray = function(array, serie) {
+      if(array == undefined) return false;
       for (var index = 0; index < array.length; index++) {
         if (array[index].imdbId === serie.imdbId) {
-          return true;
+          return "true";
         }
       }
-      return false;
+      return "false";
     }
 
 });
