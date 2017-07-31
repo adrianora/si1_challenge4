@@ -303,7 +303,7 @@ angular.module("serpring")
 	 */
     var addSerie = function(serie, arraySerie, booleanSerieInProfile) {
       if ($scope.currentSession.email !== undefined) {
-        if (containsInArray($scope.profileWatchlist, serie) == -1) {
+        if (containsInArray($scope.profileWatchlist, serie) === false) {
           $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
           .then(function (response) {
             var newSerie = serieObjectBuilder(response, $scope.currentSession.id, booleanSerieInProfile);
@@ -390,11 +390,11 @@ angular.module("serpring")
     var containsInArray = function(array, serie) {
       if(array == undefined) return false;
       for (var index = 0; index < array.length; index++) {
-        if (array[index].imdbId === serie.imdbId) {
-          return -1;
+        if (array[index].imdbId === serie.imdbID) {
+          return true;
         }
       }
-      return 0;
+      return false;
     }
 
 });
