@@ -55,8 +55,7 @@ angular.module("serpring")
     /**
 	 * Constantes da API da aplicação 'Serpring'
 	 */
-    // const APP_NAME = "https://serpring.herokuapp.com/";
-    const APP_NAME = "http://localhost:8080/serpring/";
+    const APP_NAME = "https://serpring.herokuapp.com/";
 
     /**
 	 * Bateria de status que descrevem o comportamente atual da aplicação ao
