@@ -150,8 +150,15 @@ angular.module("serpring")
 	 */
     $scope.addSerieToProfile = function(serie) {
       if ($scope.currentSession.email !== undefined) {
-        addSerie(serie, "true");
-        bootSerieCollection();
+        $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
+        .then(function (response) {
+          var newSerie = serieObjectBuilder(response, $scope.currentSession.id, "true");
+          $scope.profileWatching.push(newSerie);
+          saveDB(newSerie);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       } else {
         alert("Você precisa estar logado para adicionar séries");
       }
@@ -190,8 +197,15 @@ angular.module("serpring")
 	 */
     $scope.addSerieToWatchlist = function(serie) {
       if ($scope.currentSession.email !== undefined) {
-        addSerie(serie, "false");
-        bootSerieCollection();
+        $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
+        .then(function (response) {
+          var newSerie = serieObjectBuilder(response, $scope.currentSession.id, "false");
+          $scope.profileWatchlist.push(newSerie);
+          saveDB(newSerie);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
       } else {
         alert("Você precisa estar logado para adicionar séries");
       }
