@@ -149,19 +149,7 @@ angular.module("serpring")
 	 * booleano informando se deve ser adicionado no perfil ou na watchlist.
 	 */
     $scope.addSerieToProfile = function(serie) {
-      if ($scope.currentSession.email !== undefined) {
-        $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
-        .then(function (response) {
-          var newSerie = serieObjectBuilder(response, $scope.currentSession.id, "true");
-          $scope.profileWatching.push(newSerie);
-          saveDB(newSerie);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      } else {
-        alert("Você precisa estar logado para adicionar séries");
-      }
+      addSerie(serie, $scope.profileWatching, "true");
     };
 
     /**
@@ -196,19 +184,7 @@ angular.module("serpring")
 	 * booleano informando se deve ser adicionado no perfil ou na watchlist.
 	 */
     $scope.addSerieToWatchlist = function(serie) {
-      if ($scope.currentSession.email !== undefined) {
-        $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
-        .then(function (response) {
-          var newSerie = serieObjectBuilder(response, $scope.currentSession.id, "false");
-          $scope.profileWatchlist.push(newSerie);
-          saveDB(newSerie);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      } else {
-        alert("Você precisa estar logado para adicionar séries");
-      }
+      addSerie(serie, $scope.profileWatching, "false");
     };
 
     /**
@@ -324,16 +300,26 @@ angular.module("serpring")
 	 * seguida é reconstruído as duas sub-listas do usuário através do método
 	 * 'bootSerieCollection'.
 	 */
-    var addSerie = function(serie, booleanSerieInProfile) {
-      $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
-      .then(function (response) {
-        var newSerie = serieObjectBuilder(response, $scope.currentSession.id, booleanSerieInProfile);
-        $scope.profileWatching.push(newSerie);
-        saveDB(newSerie);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    var addSerie = function(serie, arraySerie, booleanSerieInProfile) {
+      if ($scope.currentSession.email !== undefined) {
+        if (containsInArray($scope.profileWatching, serie)) {
+          alert("Esta série já está adicionada em seu perfil");
+        } else if (containsInArray$scope.profileWatchlist, serie) {
+          alert("Esta série já está adicionada em sua lista de desejos");
+        } else {
+          $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
+          .then(function (response) {
+            var newSerie = serieObjectBuilder(response, $scope.currentSession.id, booleanSerieInProfile);
+            arraySerie.push(newSerie);
+            saveDB(newSerie);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        }
+      } else {
+        alert("Você precisa estar logado para adicionar séries");
+      }
     };
 
     /**
