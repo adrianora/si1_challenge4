@@ -304,7 +304,7 @@ angular.module("serpring")
       if ($scope.currentSession.email !== undefined) {
         if (containsInArray($scope.profileWatching, serie)) {
           alert("Esta série já está adicionada em seu perfil");
-        } else if (containsInArray$scope.profileWatchlist, serie) {
+        } else if (containsInArray($scope.profileWatchlist, serie)) {
           alert("Esta série já está adicionada em sua lista de desejos");
         } else {
           $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
