@@ -55,7 +55,8 @@ angular.module("serpring")
     /**
 	 * Constantes da API da aplicação 'Serpring'
 	 */
-    const APP_NAME = "https://serpring.herokuapp.com/";
+    // const APP_NAME = "https://serpring.herokuapp.com/";
+    const APP_NAME = "http://localhost:8080/serpring/";
 
     /**
 	 * Bateria de status que descrevem o comportamente atual da aplicação ao
@@ -314,6 +315,7 @@ angular.module("serpring")
       $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
       .then(function (response) {
         var newSerie = serieObjectBuilder(response, $scope.currentSession.id, booleanSerieInProfile);
+        $scope.profileWatching.push(newSerie);
         saveDB(newSerie);
       })
       .catch(function(error) {
