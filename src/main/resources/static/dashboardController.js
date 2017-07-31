@@ -303,11 +303,7 @@ angular.module("serpring")
 	 */
     var addSerie = function(serie, arraySerie, booleanSerieInProfile) {
       if ($scope.currentSession.email !== undefined) {
-        if (containsInArray($scope.profileWatching, serie) === "true") {
-          alert("Esta série já está adicionada em seu perfil");
-        } else if (containsInArray($scope.profileWatchlist, serie) === "true") {
-          alert("Esta série já está adicionada em sua lista de desejos");
-        } else {
+        if (containsInArray($scope.profileWatchlist, serie) == -1) {
           $http({method: 'GET', url: IMDB_API_BASEURLID + serie.imdbID + IMDB_API_APIKEY})
           .then(function (response) {
             var newSerie = serieObjectBuilder(response, $scope.currentSession.id, booleanSerieInProfile);
@@ -317,6 +313,8 @@ angular.module("serpring")
           .catch(function(error) {
             console.log(error);
           });
+        } else {
+          alert("Esta série já está adicionada");
         }
       } else {
         alert("Você precisa estar logado para adicionar séries");
@@ -393,10 +391,10 @@ angular.module("serpring")
       if(array == undefined) return false;
       for (var index = 0; index < array.length; index++) {
         if (array[index].imdbId === serie.imdbId) {
-          return "true";
+          return -1;
         }
       }
-      return "false";
+      return 0;
     }
 
 });
