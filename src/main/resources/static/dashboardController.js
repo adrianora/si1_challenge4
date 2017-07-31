@@ -55,7 +55,7 @@ angular.module("serpring")
     /**
 	 * Constantes da API da aplicação 'Serpring'
 	 */
-    const APP_NAME = "https://serpring.herokuapp.com/";
+    const APP_NAME = "https://serpring.herokuapp.com";
 
     /**
 	 * Bateria de status que descrevem o comportamente atual da aplicação ao
@@ -205,8 +205,9 @@ angular.module("serpring")
     $scope.moveSerieFromWatching = function (serie) {
       if (confirm('Você tem certeza que deseja mover "' + serie.title + '" para seu perfil?') === true) {
         serie.inProfile = "true";
+        $scope.profileWatching.push(serie);
+        $scope.profileWatchlist.splice($scope.profileWatchlist.indexOf(serie), 1);
         putDB(serie);
-        bootSerieCollection();
       }
     };
 
@@ -390,7 +391,7 @@ angular.module("serpring")
 	 */
     var containsInArray = function(array, serie) {
       for (var index = 0; index < array.length; index++) {
-        if (array[index].imdbId === serie.imdbId) {
+        if (array[index].imdbId == serie.imdbId) {
           return true;
         }
       }
