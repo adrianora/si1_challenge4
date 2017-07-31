@@ -18,10 +18,9 @@ import lab3.spring.serpring.service.UserService;
 
 /**
  * Controlador responsável por receber requisições REST do usuário, como
- * autenticar e cadastrar novo usuário
+ * adicionar, logar e todas as séries do usuário.
  * 
- * Possui injeção de dependência aos serviços 'userService' e 'serieService'.
- *
+ * Possui injeção de dependência ao serviço 'UserService'.
  */
 @RestController
 public class UserController {

@@ -14,10 +14,9 @@ import lab3.spring.serpring.service.SerieService;
 
 /**
  * Controlador responsável por receber requisições REST das séries, como
- * adicionar nova, remover e atualizar
+ * adicionar, remover e atualizar.
  * 
- * Possui injeção de dependência ao serviço 'serieService'.
- *
+ * Possui injeção de dependência ao serviço 'SerieService'.
  */
 @RestController
 public class SerieController {

@@ -33,7 +33,7 @@ public class SerieService {
 	}
 
 	/**
-	 * Deleta a série pelo objeto.
+	 * Deleta série pelo objeto.
 	 */
 	public Serie delete(Serie serie) {
 		serieRepository.delete(serie);
@@ -50,26 +50,22 @@ public class SerieService {
 	}
 
 	/**
-	 * Realiza busca no repositório. Se encontrar retornar objeto, caso
-	 * contrário retorna null.
+	 * Realiza busca no repositório por id. Se encontrar retorna o 
+	 * objeto encontrado. Contrário retorna null.
 	 */
 	public Serie get(Integer serieID) {
 		return serieRepository.findOne(serieID);
 	}
 
 	/**
-	 * Retorna todas as séries presente no respositório como uma lista
+	 * Retorna todas as séries presente no respositório como lista.
 	 */
 	public List<Serie> all() {
 		return serieRepository.findAll();
 	}
 
 	/**
-	 * Constrói uma lista com todas as série de um usuário específico
-	 * 
-	 * Utliza um iterator no laço indefinido para evitar duplicar a lista de
-	 * todas as séries cadastradas
-	 * 
+	 * Retorna lista com todas as séries de um usuário específico.
 	 */
 	public List<Serie> buildByUser(Integer userId) {
 		List<Serie> allSeries = this.serieRepository.findAll();

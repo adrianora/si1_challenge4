@@ -12,13 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 /**
- * Objeto usuário é tratado como Entidade Persistente da JPA
+ * Objeto usuário é tratado como Entidade Persistente da JPA.
  * 
  * Possui como atributo especial o ID de usuário, que é gerado de forma
- * automática
+ * automática.
  * 
- * Demais atributos são dados peculiares ao objeto
- *
+ * Demais atributos são dados peculiares ao objeto.
  */
 @Entity
 @Table(name = "TB_USER")

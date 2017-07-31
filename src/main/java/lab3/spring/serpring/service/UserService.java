@@ -11,10 +11,6 @@ import lab3.spring.serpring.repository.UserRepository;
 /**
  * Serviço intermediador de ações externas ao repositório de usuários
  * 
- * Assumindo que usuário possui identificador único, tem implementação de adição
- * e login baseado no id. Se o id for igual ao do usuário cadastrado no
- * respositório, consequentemente email e senha serão.
- *
  * Possui injeção de dependência para repositório de usuários.
  *
  */

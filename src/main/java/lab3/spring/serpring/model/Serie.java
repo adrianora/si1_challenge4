@@ -19,8 +19,7 @@ import javax.validation.constraints.NotNull;
  * Atributo inProfile indica se a série está no perfil ou na watchlist,
  * retornando true ou false, respectivamente.
  * 
- * Demais atributos são peculiares ao objeto
- *
+ * Demais atributos são peculiares ao objeto.
  */
 @Entity
 @Table(name = "tb_serie")
